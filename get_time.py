@@ -7,6 +7,9 @@ import exifread
 from hachoir import metadata
 from hachoir import parser
 from pyexiv2 import Image
+import my_utils
+from PIL import Image as Image2
+from PIL.ExifTags import TAGS
 
 unnormal_path = "/Users/yazhi/Documents/11_edit_backup/unnormal/"
 normal_path = "/Users/yazhi/Documents/11_edit_backup/normal/"
@@ -24,52 +27,28 @@ def scan_dir(path):
             time = get_file_time(file_name)
             print(time)
 
-def isPic(path):
-    if path.endswith(".JPG") \
-            or path.endswith(".jpg") \
-            or path.endswith(".jpeg") \
-            or path.endswith(".JPEG") \
-            or path.endswith(".png") \
-            or path.endswith(".PNG") \
-            or path.endswith(".HEIC"):
-        return True
-    else:
-        return False
-
-def isPng(path):
-    if path.endswith(".png") \
-            or path.endswith(".PNG"):
-        return True
-    else:
-        return False
-
-def isVideo(path):
-    if path.endswith(".MOV") \
-            or path.endswith(".mp4") \
-            or path.endswith(".MP4") \
-            or path.endswith(".mov"):
-        return True
-    else:
-        return False
-
 def get_file_time(path):
-    if isPic(path):
+    if my_utils.isPic(path):
         return get_image_time(path)
-    elif isVideo(path):
+    elif my_utils.isVideo(path):
         return get_video_time(path)
     else:
         print("非图片、视频")
+        return ""
 
 def get_image_time(path):
     time = ""
     # print(path)
-    if isPic(path):
+    if my_utils.isPic(path):
         f = open(path, 'rb')
-        tags = exifread.process_file(f)
-        # 2020:10:11 09:42:31
-        time = str(tags.get('EXIF DateTimeOriginal', ""))
+        try:
+            tags = exifread.process_file(f)
+            # 2020:10:11 09:42:31
+            time = str(tags.get('EXIF DateTimeOriginal', ""))
+        except Exception as e:
+            print(e)
         if len(time) == 0:
-            # print("exifread 读取不到时间，尝试使用 pyexiv2")
+            print("exifread 读取不到时间，尝试使用 pyexiv2")
             try:
                 test = Image(path)
                 data = test.read_exif()
@@ -78,7 +57,12 @@ def get_image_time(path):
                     print("pyexiv2 读取时间成功", path)
             except Exception as e:
                 print(e)
-    elif isVideo(path):
+        if len(time) == 0:
+            print("pyexiv2 读取不到时间，尝试使用 exiftool")
+            time = call_exiftool(path)
+            if len(time) != 0:
+                print("exiftool 读取时间成功", path)
+    elif my_utils.isVideo(path):
         f = open(path, 'rb')
         time = get_video_time(f)
     return time
@@ -106,9 +90,9 @@ def get_video_time(file,filetype="",myChar='Creation date',timePosition=8):
         print("Unable to extract metadata.")
         return False
 
-
+    print("---")
     myList = metadataDecode.exportPlaintext(line_prefix="") # 将文件的metadata转换为list,且将前缀设置为空
-    # print(myList)
+    print(myList)
 
     res = ""
     for i in range(1,len(myList)+1):
@@ -131,11 +115,29 @@ def change_video_format(str):
     time_array = time.localtime(time_stamp)
     return time.strftime("%Y:%m:%d %H:%M:%S", time_array)
 
+def call_exiftool(path):
+    cmd = "exiftool -h " + path
+    if "(" in cmd:
+        cmd = cmd.replace("(", "\(")
+    if ")" in cmd:
+        cmd = cmd.replace(")", "\)")
+    dumpsys = os.popen(cmd)
+    info = dumpsys.readlines()
+    time = ""
+    for i in info:
+        if "File Modification Date/Time" in i:
+            # print(i)
+            index = i.find(":")
+            time = i[index - 4:index+15]
+            break
+    return time
+
 # root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间/test/aa"
 # root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间/test/IMG_0797.HEIC"
 # 2022:05:02 12:16:49
-root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间/重复时间照片都要"
-# 2017:12:24 08:39:14
+# root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间副本-origin"
+root_path = "/Users/yazhi/Documents/11_edit_backup/unnormal_png/IMG_3114.PNG"
+# root_path = "/Users/yazhi/Documents/11_edit_backup/normal_image/2023-01/20230121-182322-IMG_5930.JPG"
 
 # 打印出 root_path 下所有文件的时间
 if __name__ == '__main__':
