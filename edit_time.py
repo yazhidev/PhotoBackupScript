@@ -48,12 +48,14 @@ def process_file(path):
         print("error file")
 
 
-dir_path = "/Users/yazhi/Documents/11_edit_backup/test/20230127-184318-IMG_0640.jpeg"
+dir_path = "/Users/yazhi/Documents/11_edit_backup/repeat_time_file/2021-05-16-13-41-08/a/"
 # 修改后复制到该目录下
 edit_time_path = "/Users/yazhi/Documents/11_edit_backup/origin/"
 # edit_time = "2019:11:17 13:17:28" #婚礼
 # edit_time = "2017:06:17 11:17:28" #辅导君烧烤
-edit_time = "2020:01:21 18:27:00"
+# edit_time = "2021:02:11 18:57:00"
+edit_time = "20210516-134308"
+
 # edit_time = "2021:11:19 21:30:00" # 迪士尼
 # edit_time = "2020:12:16 19:55:00" # 哈尔滨
 
@@ -62,6 +64,7 @@ edit_time = "2020:01:21 18:27:00"
 # 移动到 edit_time_path 里对应的月份文件夹
 # 不支持 HEIC，PNG
 if __name__ == '__main__':
+    edit_time = my_utils.change_time_format2(edit_time, "%Y%m%d-%H%M%S")
     if os.path.isdir(dir_path):
         scan_dir(dir_path)
     else:

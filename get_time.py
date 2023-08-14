@@ -136,7 +136,7 @@ def call_exiftool(path):
 # root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间/test/IMG_0797.HEIC"
 # 2022:05:02 12:16:49
 # root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间副本-origin"
-root_path = "/Users/yazhi/Documents/11_edit_backup/unnormal_png/IMG_3114.PNG"
+root_path = "/Users/yazhi/Documents/11_edit_backup/unnormal_video"
 # root_path = "/Users/yazhi/Documents/11_edit_backup/normal_image/2023-01/20230121-182322-IMG_5930.JPG"
 
 # 打印出 root_path 下所有文件的时间

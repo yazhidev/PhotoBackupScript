@@ -63,7 +63,7 @@ def process_file(path):
 # root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间/test/aa"
 # root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间/test/IMG_0797.HEIC"
 # 2022:05:02 12:16:49
-root_path = "/Users/yazhi/Documents/11_edit_backup/test"
+root_path = "/Users/yazhi/Documents/11_edit_backup/normal_image"
 # 2017:12:24 08:39:14
 
 # root_path 下所有文件重命名为 年月日-时分秒-原名

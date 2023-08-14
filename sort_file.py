@@ -5,14 +5,13 @@ import os
 import get_time
 import my_utils
 
-unnormal_image_path = "/Users/yazhi/Documents/11_edit_backup/xx/unnormal_image/"
-# unnormal_image_path = "/Users/yazhi/Documents/11_edit_backup/xx/normal_image"
-unnormal_png_path = "/Users/yazhi/Documents/11_edit_backup/unnormal_png/"
-unnormal_video_path = "/Users/yazhi/Documents/11_edit_backup/unnormal_video/"
-# normal_image_path = "/Users/yazhi/Documents/11_edit_backup/normal_image/"
-normal_image_path = "/Users/yazhi/Documents/11_edit_backup/xx"
-normal_video_path = "/Users/yazhi/Documents/11_edit_backup/normal_video/"
-delete_path = "/Users/yazhi/Documents/11_edit_backup/delete/"
+root_path = "/Users/yazhi/Documents/test_ima2"
+unnormal_image_path = root_path + "/unnormal_image/"
+unnormal_png_path = root_path + "/unnormal_png/"
+unnormal_video_path = root_path + "/unnormal_video/"
+normal_image_path = root_path + "/normal_image/"
+normal_video_path = root_path + "/normal_video/"
+delete_path = root_path + "/delete/"
 move_no_time_file = False
 def scan_dir(path):
     full_path = path.replace("~", os.path.expanduser('~'))
@@ -53,8 +52,7 @@ def process_file(path):
     else:
         my_utils.move_file(path, delete_path)
 
-# root_path = "/Users/yazhi/Documents/11_edit_backup/origin"
-root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间副本"
+# root_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间副本"
 
 
 if __name__ == '__main__':

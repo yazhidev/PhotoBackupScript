@@ -90,7 +90,7 @@ def change_time_format3(time_int):
 def process_file6(path, left, right, format_str, process):
     print(path)
     index = path.rfind("/")
-    str_time = change_time_format2(path[index+left:index+ right + left], format_str)
+    str_time = my_utils.change_time_format2(path[index+left:index+ right + left], format_str)
     print(str_time)
     if process:
         try:
@@ -99,16 +99,7 @@ def process_file6(path, left, right, format_str, process):
         except Exception as e:
             print(e)
 
-def change_time_format2(str, format_str):
-    # 20171224_083914
-    print(str)
-    # 先转换为时间数组
-    time_array = time.strptime(str, format_str)
-    # 转换为时间戳
-    time_stamp = int(time.mktime(time_array))
-    # 转回时间字符串
-    time_array = time.localtime(time_stamp)
-    return time.strftime("%Y:%m:%d %H:%M:%S", time_array)
+
 
 def scan_dir(path):
     full_path = path.replace("~", os.path.expanduser('~'))
@@ -125,7 +116,7 @@ def scan_dir(path):
             # 命名格式为：beauty_1573917227957
             # process_file5(file_name)
             # 命名格式为：wx_camera_1631757820018
-            process_file3(file_name, 11, True)
+            # process_file3(file_name, 11, True)
 
             # 命名带日期
             # 命名格式为：beauty_20200201170809
@@ -140,9 +131,11 @@ def scan_dir(path):
             # process_file6(file_name, 6, 19, "%Y-%m-%d_%H-%M-%S", True)
             # 命名格式为：Screenshot_2020-10-30-22-50-20-331_com.riotgame
             # process_file6(file_name, 12, 19, "%Y-%m-%d-%H-%M-%S", True)
+            # 命名格式为：20210212-153027-IMG_9452
+            process_file6(file_name, 1, 15, "%Y%m%d-%H%M%S", True)
 
 
-dir_path = "/Users/yazhi/Documents/11_edit_backup/待修改时间/重复时间照片都要"
+dir_path = "/Users/yazhi/Documents/11_edit_backup/origin/aa"
 # 修改后复制到该目录下
 edit_time_path = "/Users/yazhi/Documents/11_edit_backup/origin/"
 

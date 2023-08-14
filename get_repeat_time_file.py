@@ -18,7 +18,7 @@ def process_file(path):
     if my_utils.isPic(path):
         time = get_time.get_file_time(path)
         # print(time)
-        if len(time) != 0:
+        if len(time) == 0:
             print("无时间图片：", path)
         else:
             if time in time_map:
@@ -61,7 +61,7 @@ repeat_time_set = set()
 # root_path = "/Users/yazhi/Documents/11_edit_backup/normal_image"
 # root_path = "/Users/yazhi/Documents/11_edit_backup/test/testpath/2017-06"
 # root_path = "/Users/yazhi/Downloads/photo/佳能相机/"
-root_path = "/Users/yazhi/Documents/11_edit_backup/origin"
+root_path = "/Users/yazhi/Documents/11_edit_backup/normal_image/"
 repeat_time_file_path = "/Users/yazhi/Documents/11_edit_backup/repeat_time_file/"
 
 # 遍历 root_path，找出时间重复的图片(不处理视频)复制到 repeat_time_file_path（需要以/结尾）

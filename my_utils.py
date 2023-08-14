@@ -71,3 +71,14 @@ def change_file_time(path, edit_time):
     test = Image(path)
     print("modify_time", edit_time)
     test.modify_exif({'Exif.Photo.DateTimeOriginal': edit_time})
+
+def change_time_format2(str, format_str):
+    # 20171224_083914
+    print(str)
+    # 先转换为时间数组
+    time_array = time.strptime(str, format_str)
+    # 转换为时间戳
+    time_stamp = int(time.mktime(time_array))
+    # 转回时间字符串
+    time_array = time.localtime(time_stamp)
+    return time.strftime("%Y:%m:%d %H:%M:%S", time_array)
