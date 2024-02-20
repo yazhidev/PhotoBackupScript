@@ -5,7 +5,7 @@ import os
 import get_time
 import my_utils
 
-root_path = "/Users/yazhi/Documents/test_ima2"
+root_path = "/Users/yazhi/Downloads/photo"
 unnormal_image_path = root_path + "/unnormal_image/"
 unnormal_png_path = root_path + "/unnormal_png/"
 unnormal_video_path = root_path + "/unnormal_video/"
@@ -44,9 +44,11 @@ def process_file(path):
             if move_no_time_file:
                 my_utils.move_file(path, unnormal_video_path)
         else:
-            # print("时间：", time)
+            print("时间：", time)
             month_time = time[0:6]
+            print("month_time=", month_time)
             month = month_time[0:4] + "-" + month_time[4:6]
+            print("month=", month)
             month_dir = normal_video_path + month + "/"
             my_utils.move_file(path, month_dir)
     else:

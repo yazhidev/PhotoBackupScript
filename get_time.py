@@ -101,7 +101,7 @@ def get_video_time(file,filetype="",myChar='Creation date',timePosition=8):
             fileTime = re.sub(r"\D",'',myList[i-1])    #使用正则表达式将列表中的非数字元素剔除
             a=list(fileTime)                           #将文件创建时间字符串转为列表list
             a.insert(timePosition,'_')                 #将列表插入下划线分割date与time
-            res = change_video_format("".join(a))
+            res = "".join(a)
     return res
 
 # 20171224_083914 转 2017:12:24 08:39:14
